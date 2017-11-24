@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>树形菜单</title>
+    <script src="https://unpkg.com/vue"></script>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            list-style: none;
+            text-decoration: none;
+        }
+        .manu{
+            width:300px;
+            height:auto;
+            margin:50px 0 0 50px;
+        }
+        .manu li{
+            width:100%;
+            height:auto;
+            background: lightgrey;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            cursor: default;
+        }
+        h5{
+            font-family: 创艺简黑体;
+            font-size: 20px;
+            color:orangered;
+            text-align: center;
+            line-height: 60px;
+        }
+        .manu li a{
+            display: block;
+            width:100%;
+            height:30px;
+            font-family: 创艺简黑体;
+            font-size: 15px;
+            color:orangered;
+            text-align: center;
+            line-height: 30px;
+            background: #F1F1F1;
+            margin-bottom: 2px;
+        }
+    </style>
+</head>
+<body>
+<div class="manu">
+    <custom-manu></custom-manu>
+</div>
+</body>
+</html>
+<script>
+    Vue.component("custom-manu",{
+        template:`
+            <ul>
+                <li v-for="parent in con">
+                    <h5 @click="toggle(parent)">{{parent.title}}</h5>
+                    <a href='' v-for="son in parent.son" v-show="parent.state">{{son.title}}</a>
+                </li>
+            </ul>
+        `,
+        data:function (){
+            return {
+                con:[{title:"北京",state:false,son:[{title:"颐和园"},{title:"天安门"},{title:"长城"}]},{title:"上海",state:false,son:[{title:"东方明珠"},{title:"外滩"},{title:"田子坊"},{title:"杜莎夫人蜡像馆"}]},{title:"杭州",state:false,son:[{title:"西湖"},{title:"灵隐寺"},{title:"钱塘江"},{title:"苏堤"}]},{title:"青岛",state:false,son:[{title:"北九水"},{title:"栈桥"},{title:"崂山"},{title:"金沙滩"}]}]
+            }
+        },
+        methods:{
+            toggle(parent){
+                parent.state = !parent.state;
+            }
+        }
+    })
+    new Vue({
+        el:'.manu',
+        data:{}
+    })
+
+</script>
